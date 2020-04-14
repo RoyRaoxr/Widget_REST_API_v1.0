@@ -23,7 +23,6 @@ public class QuestionAnswerDTO {
 
 	public static QuestionAnswer transform(final QuestionAnswerDTO newQADto, final Question question) {
 		final QuestionAnswer newQa = new QuestionAnswer();
-		newQa.setAnswer(newQADto.getAnswer());
 		newQa.setIsCorrectAnswer(newQADto.getIsCorrectAnswer());
 		newQa.setQuestion(question);
 
@@ -34,7 +33,6 @@ public class QuestionAnswerDTO {
 		final QuestionAnswerDTO newQaDto = new QuestionAnswerDTO();
 
 		newQaDto.setId(save.getId());
-		newQaDto.setAnswer(save.getAnswer());
 		newQaDto.setIsCorrectAnswer(save.isCorrectAnswer());
 		newQaDto.setCreatedAt(save.getCreatedAt());
 		newQaDto.setUpdatedAt(save.getUpdatedAt());

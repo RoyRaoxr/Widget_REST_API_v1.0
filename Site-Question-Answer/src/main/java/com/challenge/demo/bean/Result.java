@@ -17,35 +17,33 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.io.Reader;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "question_answer")
+@Table(name = "result")
 @EntityListeners(AuditingEntityListener.class)
-public class QuestionAnswer implements Serializable {
+public class Result implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_answer_id")
-    private Long id;
+    @Column(name = "result_id")
+    private Long resultId;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", referencedColumnName = "question_id")
     private Question question;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "option_id", referencedColumnName = "option_id")
-    private Option option;
+    @JoinColumn(name = "question_answer_id", referencedColumnName = "question_answer_id")
+    private QuestionAnswer questionAnswer;
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "choice_id", referencedColumnName = "choice_id")
-    private Choice choice;
-
-    @Column(nullable = false, columnDefinition = "TINYINT(1)")
-    private boolean isCorrectAnswer;
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User user;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -57,6 +55,9 @@ public class QuestionAnswer implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
+    @Column(nullable = false, columnDefinition = "TINYINT(1)")
+    private boolean isVisited;
+
     public Question getQuestion() {
         return question;
     }
@@ -65,36 +66,28 @@ public class QuestionAnswer implements Serializable {
         this.question = question;
     }
 
-    public Long getId() {
-        return id;
+    public User getUser() {
+        return user;
     }
 
-    public void setId(final Long id) {
-        this.id = id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Option getOption() {
-        return option;
+    public QuestionAnswer getQuestionAnswer() {
+        return questionAnswer;
     }
 
-    public void setOption(Option option) {
-        this.option = option;
+    public boolean isVisited() {
+        return isVisited;
     }
 
-    public Choice getChoice() {
-        return choice;
+    public void setIsVisited(boolean isVisited) {
+        this.isVisited = isVisited;
     }
 
-    public void setChoice(Choice choice) {
-        this.choice = choice;
-    }
-
-    public boolean isCorrectAnswer() {
-        return isCorrectAnswer;
-    }
-
-    public void setIsCorrectAnswer(boolean isCorrectAnswer) {
-        this.isCorrectAnswer = isCorrectAnswer;
+    public Long getResultId() {
+        return resultId;
     }
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -111,18 +104,18 @@ public class QuestionAnswer implements Serializable {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        final QuestionAnswer that = (QuestionAnswer) o;
-        return isCorrectAnswer == that.isCorrectAnswer &&
-                Objects.equals(id, that.id) &&
+        final Result that = (Result) o;
+        return isVisited == that.isVisited&&
+                Objects.equals(resultId, that.resultId) &&
                 Objects.equals(question, that.question) &&
-                Objects.equals(option, that.option) &&
-                Objects.equals(choice, that.choice) &&
+                Objects.equals(questionAnswer, that.questionAnswer) &&
+                Objects.equals(user, that.user) &&
                 Objects.equals(createdAt, that.createdAt) &&
                 Objects.equals(updatedAt, that.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, question, option, choice, isCorrectAnswer, createdAt, updatedAt);
+        return Objects.hash(resultId, question, questionAnswer, user, createdAt, updatedAt, isVisited);
     }
 }

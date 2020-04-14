@@ -31,83 +31,95 @@ import java.util.Objects;
 @EntityListeners(AuditingEntityListener.class)
 public class Question implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "question_id")
-	private Long questionId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "question_id")
+    private Long questionId;
 
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "site_id", referencedColumnName = "site_id")
-	private Site site;
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "site_id", referencedColumnName = "site_id")
+    private Site site;
 
-	@NotBlank
-	@Length(min = 0, max = 250)
-	private String question;
+    @NotBlank
+    @Length(min = 0, max = 250)
+    private String question;
 
-	@OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
-	private List<QuestionAnswer> answers = new ArrayList<>();
+    @Column(nullable = false)
+    private QuestionType type;
 
-	@Column(nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@CreatedDate
-	private Date createdAt;
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    private List<QuestionAnswer> answers = new ArrayList<>();
 
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@LastModifiedDate
-	private Date updatedAt;
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
 
-	public String getQuestion() {
-		return question;
-	}
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt;
 
-	public void setQuestion(String question) {
-		this.question = question;
-	}
+    public String getQuestion() {
+        return question;
+    }
 
-	public Long getQuestionId() {
-		return questionId;
-	}
+    public void setQuestion(String question) {
+        this.question = question;
+    }
 
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public Long getQuestionId() {
+        return questionId;
+    }
 
-	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public Site getSite() {
-		return site;
-	}
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public void setSite(Site site) {
-		this.site = site;
-	}
+    public Site getSite() {
+        return site;
+    }
 
-	public List<QuestionAnswer> getAnswers() {
-		return answers;
-	}
+    public void setSite(Site site) {
+        this.site = site;
+    }
 
-	@Override
-	public boolean equals(final Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		final Question question1 = (Question) o;
-		return Objects.equals(questionId, question1.questionId) &&
-				Objects.equals(site, question1.site) &&
-				Objects.equals(question, question1.question) &&
-				Objects.equals(answers, question1.answers) &&
-				Objects.equals(createdAt, question1.createdAt) &&
-				Objects.equals(updatedAt, question1.updatedAt);
-	}
+    public List<QuestionAnswer> getAnswers() {
+        return answers;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(questionId, site, question, answers, createdAt, updatedAt);
-	}
+    public QuestionType getType() {
+        return type;
+    }
+
+    public void setType(QuestionType type) {
+        this.type = type;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final Question question1 = (Question) o;
+        return Objects.equals(questionId, question1.questionId) &&
+                Objects.equals(site, question1.site) &&
+                Objects.equals(question, question1.question) &&
+				Objects.equals(type, question1.type) &&
+                Objects.equals(answers, question1.answers) &&
+                Objects.equals(createdAt, question1.createdAt) &&
+                Objects.equals(updatedAt, question1.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(questionId, site, type, question, answers, createdAt, updatedAt);
+    }
 }
