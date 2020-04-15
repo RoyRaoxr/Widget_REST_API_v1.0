@@ -8,6 +8,5 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query(value = "SELECT u.* FROM Users u WHERE u.user_uuid = ?1", nativeQuery = true)
-    User findByUuid(UUID userUUID);
+    User findByUserUUID(UUID userUUID);
 }

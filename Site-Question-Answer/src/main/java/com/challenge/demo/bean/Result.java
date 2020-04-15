@@ -56,7 +56,7 @@ public class Result implements Serializable {
     private Date updatedAt;
 
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
-    private boolean isVisited;
+    private boolean isVisited = false;
 
     public Question getQuestion() {
         return question;

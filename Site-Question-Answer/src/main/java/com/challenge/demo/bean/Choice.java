@@ -39,9 +39,6 @@ public class Choice implements Serializable {
     @JoinColumn(name = "question_id", referencedColumnName = "question_id")
     private Question question;
 
-    @OneToMany(mappedBy = "choice", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    private List<QuestionAnswer> questionAnswers = new ArrayList<>();
-
     public Long getChoiceId() {
         return choiceId;
     }

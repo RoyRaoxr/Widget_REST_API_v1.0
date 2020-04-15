@@ -10,10 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "question")
@@ -38,11 +35,8 @@ public class Question implements Serializable {
     @Column(nullable = false)
     private String type;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
     private List<QuestionAnswer> questionAnswers = new ArrayList<>();
-
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
-    private List<Result> results = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

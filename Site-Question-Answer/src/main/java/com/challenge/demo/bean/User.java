@@ -23,10 +23,6 @@ public class User implements Serializable {
     @Column(nullable = false, name = "user_uuid")
     private UUID userUUID;
 
-//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "site_id", referencedColumnName = "site_id")
-//    private Site site;
-
     // Is this necessary?
 //    @Column(nullable = false, name = "username")
 //    private String username;

@@ -23,9 +23,6 @@ public class Option implements Serializable {
     @Column(nullable = false, name = "option_text")
     private String optionText = "Option";
 
-    @OneToMany(mappedBy = "option", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    private List<QuestionAnswer> questionAnswers = new ArrayList<>();
-
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", referencedColumnName = "question_id")
     private Question question;

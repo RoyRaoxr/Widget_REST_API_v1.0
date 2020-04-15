@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/questions")
@@ -135,10 +134,48 @@ public class QuestionController {
         return ResponseEntity.ok(option);
     }
 
-//    @PostMapping("/{id}/options")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<Option>
+    @PutMapping("/{id}/options/{option_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Option> updateQuestionOptions(@PathVariable(value = "id") Long questionId,
+                                                        @PathVariable(value = "option_id") Long optionId,
+                                                        @RequestBody Option incomingOption) {
+        return optionRepository
+                .findById(optionId)
+                .map(option -> {
+                    option.setOptionText(incomingOption.getOptionText());
+                    return new ResponseEntity<>(optionRepository.save(option), HttpStatus.OK);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
+    @DeleteMapping("/{id}/options/{option_id}")
+    public ResponseEntity<Option> deleteQuestionOptions(@PathVariable(value = "id") Long questionId,
+                                                        @PathVariable(value = "option_id") Long optionId) {
+        return optionRepository
+                .findById(optionId)
+                .map(option -> {
+                    optionRepository.delete(option);
+                    return ResponseEntity.ok(option);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/options/{option_id}")
+    public ResponseEntity<Option> getOptionById(@PathVariable(value = "id") Long questionId,
+                                                        @PathVariable(value = "option_id") Long optionId) {
+        return optionRepository
+                .findById(optionId)
+                .map(option -> {
+                    return ResponseEntity.ok(option);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
+
+    /*
+     *  CRUD Choice for this question
+     */
     @GetMapping("/{id}/choices")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Choice>> getQuestionChoices(@PathVariable(value = "id") Long questionId) {
@@ -157,5 +194,40 @@ public class QuestionController {
         return ResponseEntity.ok(choice);
     }
 
+    @PutMapping("/{id}/choices/{choice_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Choice> updateQuestionChoices(@PathVariable(value = "id") Long questionId,
+                                                        @PathVariable(value = "choice_id") Long choiceId,
+                                                        @RequestBody Choice incomingChoice) {
+        return choiceRepository
+                .findById(choiceId)
+                .map(choice -> {
+                    choice.setChoiceText(incomingChoice.getChoiceText());
+                    return new ResponseEntity<>(choiceRepository.save(choice), HttpStatus.OK);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
+    @DeleteMapping("/{id}/choices/{choice_id}")
+    public ResponseEntity<Choice> deleteQuestionChoices(@PathVariable(value = "id") Long questionId,
+                                                        @PathVariable(value = "choice_id") Long choiceId) {
+        return choiceRepository
+                .findById(choiceId)
+                .map(choice -> {
+                    choiceRepository.delete(choice);
+                    return ResponseEntity.ok(choice);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/choices/{choice_id}")
+    public ResponseEntity<Choice> getChoiceById(@PathVariable(value = "id") Long questionId,
+                                                @PathVariable(value = "choice_id") Long choiceId) {
+        return choiceRepository
+                .findById(choiceId)
+                .map(choice -> {
+                    return ResponseEntity.ok(choice);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }

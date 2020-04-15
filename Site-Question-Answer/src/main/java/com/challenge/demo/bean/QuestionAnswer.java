@@ -32,15 +32,15 @@ public class QuestionAnswer implements Serializable {
     @Column(name = "question_answer_id")
     private Long id;
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id", referencedColumnName = "question_id")
     private Question question;
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "option_id", referencedColumnName = "option_id")
     private Option option;
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "choice_id", referencedColumnName = "choice_id")
     private Choice choice;
 

@@ -12,5 +12,5 @@ public interface AssignService {
     @Transactional
     public ResponseEntity<QuestionDTO> AssignOneQuestion(UUID siteUUID, UUID userUUID);
 
-    public ResponseEntity<ResultDTO>  saveResult(UUID siteUUID, UUID userUUID, ResultDTO resultDTO);
+    public ResponseEntity<ResultDTO>  saveResult(UUID userUUID, ResultDTO resultDTO);
 }
