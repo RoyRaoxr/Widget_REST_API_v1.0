@@ -78,7 +78,11 @@ public class Result implements Serializable {
         return questionAnswer;
     }
 
-    public boolean isVisited() {
+    public void setQuestionAnswer(QuestionAnswer questionAnswer) {
+        this.questionAnswer = questionAnswer;
+    }
+
+    public boolean getIsVisited() {
         return isVisited;
     }
 

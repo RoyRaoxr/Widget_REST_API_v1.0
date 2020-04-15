@@ -1,24 +1,13 @@
 package com.challenge.demo.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -47,10 +36,13 @@ public class Question implements Serializable {
     private String question;
 
     @Column(nullable = false)
-    private QuestionType type;
+    private String type;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
-    private List<QuestionAnswer> answers = new ArrayList<>();
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    private List<QuestionAnswer> questionAnswers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    private List<Result> results = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -93,14 +85,14 @@ public class Question implements Serializable {
     }
 
     public List<QuestionAnswer> getAnswers() {
-        return answers;
+        return questionAnswers;
     }
 
-    public QuestionType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(QuestionType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -113,13 +105,13 @@ public class Question implements Serializable {
                 Objects.equals(site, question1.site) &&
                 Objects.equals(question, question1.question) &&
 				Objects.equals(type, question1.type) &&
-                Objects.equals(answers, question1.answers) &&
+                Objects.equals(questionAnswers, question1.questionAnswers) &&
                 Objects.equals(createdAt, question1.createdAt) &&
                 Objects.equals(updatedAt, question1.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(questionId, site, type, question, answers, createdAt, updatedAt);
+        return Objects.hash(questionId, site, type, question, questionAnswers, createdAt, updatedAt);
     }
 }

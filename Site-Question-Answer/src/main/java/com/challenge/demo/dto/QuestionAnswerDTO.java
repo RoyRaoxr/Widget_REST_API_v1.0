@@ -1,5 +1,7 @@
 package com.challenge.demo.dto;
 
+import com.challenge.demo.bean.Choice;
+import com.challenge.demo.bean.Option;
 import com.challenge.demo.bean.Question;
 import com.challenge.demo.bean.QuestionAnswer;
 
@@ -9,91 +11,103 @@ import java.util.List;
 
 public class QuestionAnswerDTO {
 
-	private Long id;
+    private Long id;
 
-	private Long questionId;
+    private Long questionId;
 
-	private String answer;
+    private Long optionId;
 
-	private boolean isCorrectAnswer;
+    private Long choiceId;
 
-	private Date createdAt;
+    private boolean isCorrectAnswer;
 
-	private Date updatedAt;
+    private Date createdAt;
 
-	public static QuestionAnswer transform(final QuestionAnswerDTO newQADto, final Question question) {
-		final QuestionAnswer newQa = new QuestionAnswer();
-		newQa.setIsCorrectAnswer(newQADto.getIsCorrectAnswer());
-		newQa.setQuestion(question);
+    private Date updatedAt;
 
-		return newQa;
-	}
+    public static QuestionAnswer transform(final QuestionAnswerDTO newQADto, final Question question,
+                                           final Option option, final Choice choice) {
+        final QuestionAnswer newQa = new QuestionAnswer();
+        newQa.setIsCorrectAnswer(newQADto.getIsCorrectAnswer());
+        newQa.setQuestion(question);
+        newQa.setChoice(choice);
+        newQa.setOption(option);
+        return newQa;
+    }
 
-	public static QuestionAnswerDTO build(final QuestionAnswer save) {
-		final QuestionAnswerDTO newQaDto = new QuestionAnswerDTO();
+    public static QuestionAnswerDTO build(final QuestionAnswer save) {
+        final QuestionAnswerDTO newQaDto = new QuestionAnswerDTO();
+        newQaDto.setId(save.getId());
+        newQaDto.setQuestionId(save.getQuestion().getQuestionId());
+        newQaDto.setChoiceId(save.getChoice().getChoiceId());
+        newQaDto.setOptionId(save.getOption().getOptionId());
+        newQaDto.setIsCorrectAnswer(save.isCorrectAnswer());
+        newQaDto.setCreatedAt(save.getCreatedAt());
+        newQaDto.setUpdatedAt(save.getUpdatedAt());
+        return newQaDto;
+    }
 
-		newQaDto.setId(save.getId());
-		newQaDto.setIsCorrectAnswer(save.isCorrectAnswer());
-		newQaDto.setCreatedAt(save.getCreatedAt());
-		newQaDto.setUpdatedAt(save.getUpdatedAt());
-		newQaDto.setQuestionId(save.getQuestion().getQuestionId());
+    public static List<QuestionAnswerDTO> build(final List<QuestionAnswer> answers) {
+        final List<QuestionAnswerDTO> ret = new ArrayList<>();
+        for (QuestionAnswer qa : answers) {
+            ret.add(build(qa));
+        }
+        return ret;
+    }
 
-		return newQaDto;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public static List<QuestionAnswerDTO> build(final List<QuestionAnswer> answers) {
-		final List<QuestionAnswerDTO> ret = new ArrayList<>();
-		for (QuestionAnswer qa : answers) {
-			ret.add(build(qa));
-		}
-		return ret;
-	}
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getQuestionId() {
+        return questionId;
+    }
 
-	public void setId(final Long id) {
-		this.id = id;
-	}
+    public void setQuestionId(final Long questionId) {
+        this.questionId = questionId;
+    }
 
-	public Long getQuestionId() {
-		return questionId;
-	}
+    public Long getOptionId() {
+        return optionId;
+    }
 
-	public void setQuestionId(final Long questionId) {
-		this.questionId = questionId;
-	}
+    public void setOptionId(Long optionId) {
+        this.optionId = optionId;
+    }
 
-	public String getAnswer() {
-		return answer;
-	}
+    public Long getChoiceId() {
+        return choiceId;
+    }
 
-	public void setAnswer(final String answer) {
-		this.answer = answer;
-	}
+    public void setChoiceId(Long choiceId) {
+        this.choiceId = choiceId;
+    }
 
-	public boolean getIsCorrectAnswer() {
-		return isCorrectAnswer;
-	}
+    public boolean getIsCorrectAnswer() {
+        return isCorrectAnswer;
+    }
 
-	public void setIsCorrectAnswer(final boolean correctAnswer) {
-		isCorrectAnswer = correctAnswer;
-	}
+    public void setIsCorrectAnswer(final boolean correctAnswer) {
+        isCorrectAnswer = correctAnswer;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-	public void setCreatedAt(final Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setCreatedAt(final Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public void setUpdatedAt(final Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public void setUpdatedAt(final Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
