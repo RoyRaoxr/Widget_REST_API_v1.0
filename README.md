@@ -150,6 +150,7 @@ http://localhost:8080/v1/questions/1/options/1/choices/3
 | 18 to 35      | [ ] |[ ] |
 | 35 to 55      | [ ] |[ ] |
 | > 55          | [] |[ ] |
+
 *Is an objective question that shows options in a matrix. A visitor can only pick one of the available options, there is no right or wrong answer.*
 
 ## **The Question Structure also supports these types of questions**
