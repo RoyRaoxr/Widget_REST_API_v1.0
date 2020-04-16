@@ -212,5 +212,5 @@ http://localhost:8080/v1/assign/{UserUUID}
 1. In order to better deployment and testing, the head of Request could add the the currnet version number.
 2. Design and Build Specific Errors / Exceptions with Descriptive Response to inform users and builders.
 3. When we create questions, if the question form is huge, we have to make requests one by one because the API can only handle one Object instead of the list of JSON or Requests. So that we can build more RequestMapping Method to handle the list of Questions/Sites/Options/Choices/QuestionAnswers to creation.
-4. For different types of questions, we can create a abstract class for a abstract Question structure and use specific classes to extend it to create different types of questions with different kinds of attributes.
+4. For different types of questions, we can create an abstract class for a abstract Question structure and use specific classes to extend it to create different types of questions with different kinds of attributes.
 5. Setting up CI/CD pipeline to improve the efficiency when there are more modules or features.
