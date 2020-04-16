@@ -8,14 +8,11 @@ import com.challenge.demo.dto.QuestionDTO;
 import com.challenge.demo.dto.ResultDTO;
 import com.challenge.demo.repo.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
@@ -72,7 +69,7 @@ public class AssignServiceImplementTest {
         option.setOptionText("Options");
         choice.setChoiceTitle("Choices");
         choice.setChoiceText("4");
-        
+
         questionAnswer.setOption(option);
         questionAnswer.setChoice(choice);
         questionAnswer.setIsCorrectAnswer(true);
@@ -105,12 +102,13 @@ public class AssignServiceImplementTest {
         when(questionRepository.findById(anyLong())).thenReturn(Optional.of(question));
         when(qaRepository.findById(anyLong())).thenReturn(Optional.of(questionAnswer));
         when(userRepository.findByUserUUID(any(UUID.class))).thenReturn(user);
+        when(resultRepository.save(any(Result.class))).thenReturn(result);
 
         ResultDTO test = assignService.saveResult(user.getUserUUID(), resultDto).getBody();
 
-        verify(resultRepository, times(1)).resetQuestionList(user.getUserId());
+        verify(resultRepository, times(1)).save(any(Result.class));
         assertNotNull(test);
         assertEquals(resultDto.getQuestionAnswerId(), test.getQuestionAnswerId());
-        assertEquals(resultDto.getQuestionId(), test.getResultId());
+        assertEquals(resultDto.getQuestionId(), test.getQuestionId());
     }
 }
