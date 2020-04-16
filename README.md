@@ -163,6 +163,7 @@ http://localhost:8080/v1/questions/1/options/1/choices/3
 | Honda     | [ ] |
 | Audi      | [X] |
 | BMW       | [ ] |
+
 *No correct answer with two to four possible answers in this question type.*
 
 ### CheckBox Question
