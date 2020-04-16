@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/sites")
+@RequestMapping("/v1/sites")
 public class SiteController {
 
     @Autowired

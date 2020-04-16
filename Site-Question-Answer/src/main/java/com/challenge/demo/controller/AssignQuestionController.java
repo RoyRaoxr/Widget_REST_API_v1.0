@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/assign")
+@RequestMapping("/v1/assign")
 public class AssignQuestionController {
 
     @Autowired

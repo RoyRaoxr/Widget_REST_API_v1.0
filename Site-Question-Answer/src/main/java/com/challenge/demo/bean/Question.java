@@ -35,9 +35,6 @@ public class Question implements Serializable {
     @Column(nullable = false)
     private String type;
 
-    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
-    private List<QuestionAnswer> questionAnswers = new ArrayList<>();
-
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
@@ -78,10 +75,6 @@ public class Question implements Serializable {
         this.site = site;
     }
 
-    public List<QuestionAnswer> getAnswers() {
-        return questionAnswers;
-    }
-
     public String getType() {
         return type;
     }
@@ -99,13 +92,12 @@ public class Question implements Serializable {
                 Objects.equals(site, question1.site) &&
                 Objects.equals(question, question1.question) &&
 				Objects.equals(type, question1.type) &&
-                Objects.equals(questionAnswers, question1.questionAnswers) &&
                 Objects.equals(createdAt, question1.createdAt) &&
                 Objects.equals(updatedAt, question1.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(questionId, site, type, question, questionAnswers, createdAt, updatedAt);
+        return Objects.hash(questionId, site, type, question, createdAt, updatedAt);
     }
 }

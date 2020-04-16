@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/questions")
+@RequestMapping("/v1/questions")
 public class QuestionController {
 
     @Autowired
@@ -109,7 +109,7 @@ public class QuestionController {
     public ResponseEntity<List<QuestionAnswerDTO>> getQuestionAnswers(@PathVariable(value = "id") Long questionId) {
         return questionRepository
                 .findById(questionId)
-                .map(question -> ResponseEntity.ok(QuestionAnswerDTO.build(question.getAnswers())))
+                .map(question -> ResponseEntity.ok(QuestionAnswerDTO.build(qaRepository.findAllByQuestion(question))))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 

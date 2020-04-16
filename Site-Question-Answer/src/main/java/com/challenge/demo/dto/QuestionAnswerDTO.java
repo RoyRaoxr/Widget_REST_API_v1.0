@@ -18,7 +18,11 @@ public class QuestionAnswerDTO {
 
     private Long optionId;
 
+    private String optionText;
+
     private Long choiceId;
+
+    private String choiceText;
 
     private boolean isCorrectAnswer;
 
@@ -39,6 +43,8 @@ public class QuestionAnswerDTO {
     public static QuestionAnswerDTO build(final QuestionAnswer save) {
         final QuestionAnswerDTO newQaDto = new QuestionAnswerDTO();
         newQaDto.setId(save.getId());
+        newQaDto.setChoiceText(save.getChoice().getChoiceText());
+        newQaDto.setOptionText(save.getOption().getOptionText());
         newQaDto.setQuestionId(save.getQuestion().getQuestionId());
         newQaDto.setChoiceId(save.getChoice().getChoiceId());
         newQaDto.setOptionId(save.getOption().getOptionId());
@@ -111,4 +117,21 @@ public class QuestionAnswerDTO {
     public void setUpdatedAt(final Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public String getOptionText() {
+        return optionText;
+    }
+
+    public void setOptionText(String optionText) {
+        this.optionText = optionText;
+    }
+
+    public String getChoiceText() {
+        return choiceText;
+    }
+
+    public void setChoiceText(String choiceText) {
+        this.choiceText = choiceText;
+    }
+
 }

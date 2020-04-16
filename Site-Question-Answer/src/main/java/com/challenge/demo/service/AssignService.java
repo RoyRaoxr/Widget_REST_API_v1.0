@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface AssignService {
 
     @Transactional
-    public ResponseEntity<QuestionDTO> AssignOneQuestion(UUID siteUUID, UUID userUUID);
+    ResponseEntity<QuestionDTO> AssignOneQuestion(UUID siteUUID, UUID userUUID);
 
-    public ResponseEntity<ResultDTO>  saveResult(UUID userUUID, ResultDTO resultDTO);
+    ResponseEntity<ResultDTO>  saveResult(UUID userUUID, ResultDTO resultDTO);
 }

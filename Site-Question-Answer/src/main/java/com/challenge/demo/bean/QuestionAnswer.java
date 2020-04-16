@@ -1,5 +1,6 @@
 package com.challenge.demo.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -32,7 +33,8 @@ public class QuestionAnswer implements Serializable {
     @Column(name = "question_answer_id")
     private Long id;
 
-    @ManyToOne(optional = true, fetch = FetchType.EAGER)
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("questionAnswers")
     @JoinColumn(name = "question_id", referencedColumnName = "question_id")
     private Question question;
 
@@ -45,7 +47,7 @@ public class QuestionAnswer implements Serializable {
     private Choice choice;
 
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
-    private boolean isCorrectAnswer;
+    private boolean isCorrectAnswer = false;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
