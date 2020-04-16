@@ -176,6 +176,7 @@ http://localhost:8080/v1/questions/1/options/1/choices/3
 | Green         | [ ] |
 | Black         | [X] |
 | Purple        | [ ] |
+
 *Is an objective question with up to ten possible answers.  This style of question allows for multiple correct responses*
 
 ## How to make REST Calls
