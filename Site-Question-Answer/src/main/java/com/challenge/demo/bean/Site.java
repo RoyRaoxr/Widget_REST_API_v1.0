@@ -57,6 +57,10 @@ public class Site implements Serializable {
 		return siteId;
 	}
 
+	public void setSiteId(Long siteId) {
+		this.siteId = siteId;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}

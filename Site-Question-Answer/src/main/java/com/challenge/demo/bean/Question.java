@@ -53,6 +53,10 @@ public class Question implements Serializable {
         this.question = question;
     }
 
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
+
     public Long getQuestionId() {
         return questionId;
     }
@@ -91,7 +95,7 @@ public class Question implements Serializable {
         return Objects.equals(questionId, question1.questionId) &&
                 Objects.equals(site, question1.site) &&
                 Objects.equals(question, question1.question) &&
-				Objects.equals(type, question1.type) &&
+                Objects.equals(type, question1.type) &&
                 Objects.equals(createdAt, question1.createdAt) &&
                 Objects.equals(updatedAt, question1.updatedAt);
     }
